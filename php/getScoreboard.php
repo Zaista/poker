@@ -1,8 +1,8 @@
 <?php
-	$hostname = 'db18.cpanelhosting.rs';
-	$username = 'aven_santa';
-	$password = 'Aven.021';
-	$database = 'aven_secretsanta';
+	$hostname = '169.254.0.2';
+	$username = 'zaista_secretsanta';
+	$password = 'Aven.021#';
+	$database = 'zaista_secretsanta';
 	/*
 	$hostname = "localhost";
 	$username = "root";
