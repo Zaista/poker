@@ -382,7 +382,7 @@ $(document).ready(function() {
 		}
 
         if (suits && straight)
-        	return 12;
+        	return 20;
 
         if (suits || straight)
        		return 5;
