@@ -1,20 +1,27 @@
 <?php
-	$hostname = '169.254.0.2';
-	$username = 'zaista_secretsanta';
-	$password = 'Aven.021#';
-	$database = 'zaista_secretsanta';
-	/*
-	$hostname = "localhost";
-	$username = "root";
-	$password = "";
-	$database = "poker";
-	*/
 
-	$mysqli = new mysqli($hostname, $username, $password, $database);
-	if ($mysqli->connect_error) {
-		die("Connection failed: " . $mysqli->connect_error);
-	}
-	$mysqli->query("SET NAMES utf8");
+    function connect($xml) {
+        // create connection
+        $mysqli = new mysqli($xml->database->hostname, $xml->database->username, $xml->database->password, $xml->database->database);
+        // check connection
+        if ($mysqli->connect_error) {
+            die("Connection failed: " . $mysqli->connect_error);
+        }
+        
+        // this will make sure cyrilic letters are displayed properly
+        $mysqli->query("SET NAMES utf8");
+        
+        return $mysqli;
+    }
+    
+    function get_config($config) {
+        // load configuration file
+        $xml = simplexml_load_file($config) or die("Error: Cannot load configuration file");
+        return $xml;
+    }
+    
+    $xml = get_config('private/config.xml');
+    $mysqli = connect($xml);
 
 	$stmt = $mysqli->prepare('SELECT Name, Score FROM scoreboard ORDER BY score DESC LIMIT 10');
 
