@@ -30,12 +30,6 @@
 	
 	$xml = get_config('private/config.xml');
 	$mysqli = connect($xml);
-	
-	$mysqli = new mysqli($hostname, $username, $password, $database);
-	if ($mysqli->connect_error) {
-		die("Connection failed: " . $mysqli->connect_error);
-	}
-	$mysqli->query("SET NAMES utf8");
 
 	$stmt = $mysqli->prepare('INSERT INTO scoreboard (Name, Score, Date) VALUES (?, ?, NOW());');
 	$stmt->bind_param('ss', $name, $score);
