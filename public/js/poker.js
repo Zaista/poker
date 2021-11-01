@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
 	// GAMEPLAY //
 	var cardHeight = 173;
@@ -35,10 +35,10 @@ $(document).ready(function() {
 
 	// deck of cards
 	var cards = [
-		"01s","02s","03s","04s","05s","06s","07s","08s","09s","10s","11s","12s","13s",
-		"01c","02c","03c","04c","05c","06c","07c","08c","09c","10c","11c","12c","13c",
-		"01h","02h","03h","04h","05h","06h","07h","08h","09h","10h","11h","12h","13h",
-		"01d","02d","03d","04d","05d","06d","07d","08d","09d","10d","11d","12d","13d"];
+		"01s", "02s", "03s", "04s", "05s", "06s", "07s", "08s", "09s", "10s", "11s", "12s", "13s",
+		"01c", "02c", "03c", "04c", "05c", "06c", "07c", "08c", "09c", "10c", "11c", "12c", "13c",
+		"01h", "02h", "03h", "04h", "05h", "06h", "07h", "08h", "09h", "10h", "11h", "12h", "13h",
+		"01d", "02d", "03d", "04d", "05d", "06d", "07d", "08d", "09d", "10d", "11d", "12d", "13d"];
 
 	// hold the interval
 	var setFirstFive;
@@ -63,7 +63,7 @@ $(document).ready(function() {
 
 	$("#play-div").height("+=" + offset * 4 + "px");
 
-	$("#restart").click(function() {
+	$("#restart").click(function () {
 		$('html,body').animate({ scrollTop: 0 }, 'slow');
 		removeCards();
 		resetGame();
@@ -71,12 +71,12 @@ $(document).ready(function() {
 	});
 
 	// handle user score submit to hall of fame
-	$('#score-submit').submit(function() {
+	$('#score-submit').submit(function () {
 
-		if ($.trim($("#name").val()).length == 0){
-            $("#name").parent().addClass("has-error");
-        } else {
-			$.get("php/scoreSubmit.php?name=" + $("#name").val() + "&score=" + totalScore, function(data, status) {
+		if ($.trim($("#name").val()).length == 0) {
+			$("#name").parent().addClass("has-error");
+		} else {
+			$.post("/score", { name: $("#name").val(), score: totalScore }, function (data, status) {
 				if (status === 'success' && data === 'success') {
 					$("#score-submit-dialog").modal('hide');
 					embrace($("#name").val(), totalScore);
@@ -91,11 +91,11 @@ $(document).ready(function() {
 	});
 
 	// hanlde showing back cards when clicked on them
-	$(document).mousedown(function(evt) {
+	$(document).mousedown(function (evt) {
 		if (evt.target.tagName === "FIGURE") {
 			$(evt.target).parent().parent().addClass("popup");
 		}
-	}).mouseup(function(evt) {
+	}).mouseup(function (evt) {
 		if ($(".popup")) {
 			$(".popup").removeClass("popup");
 		}
@@ -129,7 +129,7 @@ $(document).ready(function() {
 
 		// set up the interval
 		clearInterval(setFirstFive);
-		setFirstFive = setInterval(function() {
+		setFirstFive = setInterval(function () {
 
 			// loop this function 5 times
 			initialDraw(counter++);
@@ -139,7 +139,7 @@ $(document).ready(function() {
 				clearInterval(setFirstFive);
 
 				// activate droppables
-				$(".deck-outline").each(function(){
+				$(".deck-outline").each(function () {
 					showDroppable(this);
 				});
 				// set the next card and put it on the free spot
@@ -159,7 +159,7 @@ $(document).ready(function() {
 		drawCard();
 		hands[counter].push(cards[activeCard - 1]);
 		goTo($(".open"), $(".deck-outline")[counter]);
-    }
+	}
 
 
 	/**
@@ -179,9 +179,9 @@ $(document).ready(function() {
 			topOffset = 0;
 
 		// animate move and flip
-		$(target).animate({"margin-left": "0"}, {duration: 300, queue: false});
-		$(target).animate({"left": position.left}, {duration: 300, queue: false});
-		$(target).animate({"top": position.top + topOffset}, {duration: 300, queue: false});
+		$(target).animate({ "margin-left": "0" }, { duration: 300, queue: false });
+		$(target).animate({ "left": position.left }, { duration: 300, queue: false });
+		$(target).animate({ "top": position.top + topOffset }, { duration: 300, queue: false });
 		$(target).find(".card").addClass("flipped");
 		$(".open").removeClass("open");
 	}
@@ -231,12 +231,12 @@ $(document).ready(function() {
 			activeClass: "drop-hint",
 			hoverClass: "drop-highlight",
 			disabled: false,
-			drop: function(event, ui) {
+			drop: function (event, ui) {
 				resolve(this, ui.draggable);
 			}
 		});
 		$(target).addClass("pointer");
-		$(target).click(function() {
+		$(target).click(function () {
 			resolve(this, $(".ui-draggable"));
 		});
 	}
@@ -247,7 +247,7 @@ $(document).ready(function() {
 	 */
 	function hideDroppable(target) {
 		$(target).droppable(
-		   { disabled: true }
+			{ disabled: true }
 		)
 		$(target).off("click");
 		$(target).removeClass("pointer");
@@ -279,7 +279,7 @@ $(document).ready(function() {
 			$(ele).addClass("flipped");
 			hideDroppable(droppable);
 			if (card == 1) {
-				$(".deck-outline").each(function(){
+				$(".deck-outline").each(function () {
 					showDroppable(this);
 				});
 			}
@@ -291,7 +291,7 @@ $(document).ready(function() {
 			top: $(droppable).position().top + topOffset,
 			left: $(droppable).position().left,
 			"margin-left": 0
-		}, 200 );
+		}, 200);
 	}
 
 	/**
@@ -326,7 +326,7 @@ $(document).ready(function() {
 	function rankHand(hand) {
 
 		// sort array using integer sort
-		hand.sort(function(a,b) {
+		hand.sort(function (a, b) {
 			return parseInt(a.substring(0, 2)) - parseInt(b.substring(0, 2));
 		});
 
@@ -338,7 +338,7 @@ $(document).ready(function() {
 		var bucket = [];
 
 		// go through all cards in a hand
-        for (var i = 0; i < 5; i++) {
+		for (var i = 0; i < 5; i++) {
 
 			// get current card number
 			var currentNumber = parseInt(hand[i].substring(0, 2));
@@ -381,11 +381,11 @@ $(document).ready(function() {
 			}
 		}
 
-        if (suits && straight)
-        	return 20;
+		if (suits && straight)
+			return 20;
 
-        if (suits || straight)
-       		return 5;
+		if (suits || straight)
+			return 5;
 
 		// look at the buckets to determine the score
 		switch (bucket.length) {
@@ -402,21 +402,23 @@ $(document).ready(function() {
 			default:
 				return 0;
 		}
-    }
+	}
 
 	/**
 	 * removeCards will animate all the cards on the table back to deck.
 	 */
 	function removeCards() {
 		var destination = $(".static")[0];
-		$(".cards:not(.static,#free-spot,.deck-outline)").each(function() {
+		$(".cards:not(.static,#free-spot,.deck-outline)").each(function () {
 			var position = $(destination).position();
 			// animate move and flip
-			$(this).animate({"margin-left": "0"}, {duration: 300, queue: false});
-			$(this).animate({"left": position.left}, {duration: 300, queue: false});
-			$(this).animate({"top": position.top}, {duration: 300, queue: false, complete: function() {
+			$(this).animate({ "margin-left": "0" }, { duration: 300, queue: false });
+			$(this).animate({ "left": position.left }, { duration: 300, queue: false });
+			$(this).animate({ "top": position.top }, {
+				duration: 300, queue: false, complete: function () {
 					$(this).remove();
-			}});
+				}
+			});
 			$(this).find("div").removeClass("flipped");
 		});
 
@@ -432,8 +434,8 @@ $(document).ready(function() {
 		round = 1;
 		activeCard = 0;
 		// disable droppables
-		$(".deck-outline").each(function(){
-			if($(this).hasClass("pointer"))
+		$(".deck-outline").each(function () {
+			if ($(this).hasClass("pointer"))
 				hideDroppable(this);
 		});
 
@@ -450,32 +452,32 @@ $(document).ready(function() {
 	function embrace(name, score) {
 		if (name) {
 			// show hall-wall
-			$("#hall-wall").css({"visibility": "visible", "opacity": 0.9});
+			$("#hall-wall").css({ "visibility": "visible", "opacity": 0.9 });
 			$("#hall-text").text("WELCOME");
-			setTimeout(function(){
+			setTimeout(function () {
 				$("#hall-text").text("TO");
 			}, 1000);
-			setTimeout(function(){
+			setTimeout(function () {
 				$("#hall-text").text("THE");
 			}, 1500);
-			setTimeout(function(){
+			setTimeout(function () {
 				$("#hall-text").text("HALL OF FAME");
 			}, 2200);
-			setTimeout(function(){
+			setTimeout(function () {
 				addScore(name, score);
 				$("#hall-wall").css("opacity", 0);
 			}, 3200);
-			setTimeout(function(){
+			setTimeout(function () {
 				$("#hall-wall").css("visibility", "hidden");
 			}, 3700);
 		} else {
 			// show hall-wall
-			$("#hall-wall").css({"visibility": "visible", "opacity": 0.9});
+			$("#hall-wall").css({ "visibility": "visible", "opacity": 0.9 });
 			$("#hall-text").text("DENIED!");
-			setTimeout(function(){
+			setTimeout(function () {
 				$("#hall-wall").css("opacity", 0);
 			}, 1500);
-			setTimeout(function(){
+			setTimeout(function () {
 				$("#hall-wall").css("visibility", "hidden");
 			}, 2000);
 		}
@@ -486,10 +488,10 @@ $(document).ready(function() {
 	 */
 	function getScoreboard() {
 		scoreboard = [];
-		$.get("php/getScoreboard.php", function(data, status){
+		$.get("score", function (data, status) {
 			if (status === "success" && data != "failed") {
 				var response = JSON.parse(data);
-				for(var i = 0; i < response.length; i++) {
+				for (var i = 0; i < response.length; i++) {
 					scoreboard.push([response[i][0], response[i][1]]);
 				}
 				updateHiScore();
@@ -523,7 +525,7 @@ $(document).ready(function() {
 				break;
 			}
 		}
-		if(flag) {
+		if (flag) {
 			scoreboard.push([name, score]);
 		}
 		updateHiScore();
