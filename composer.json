@@ -1,7 +1,7 @@
 {
     "name": "zaista/poker",
     "description": "Romanian poker",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "require": {
         "php": "7.4.*",
         "google/cloud-secret-manager": "^1.7",
