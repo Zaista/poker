@@ -2,5 +2,5 @@ runtime: php74
 service: poker
 
 handlers:
-- url: /resources
-  static_dir: public/resources
+- url: /images
+  static_dir: public/images
