@@ -1,2 +1,6 @@
 runtime: php74
 service: poker
+
+handlers:
+- url: /resources
+  static_dir: public/resources
