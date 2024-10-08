@@ -1,0 +1,30 @@
+{
+  "name": "poker",
+  "version": "1.0.0",
+  "description": "A single-player poker game called \"The Romanian poker\" (at least that's how it's called in my friend circle).",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "build": "tsc -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "poker",
+    "single-player-poker",
+    "romanian-poker"
+  ],
+  "author": "Zaista",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "mongoose": "^8.7.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.7.5",
+    "typescript": "^5.6.2"
+  }
+}

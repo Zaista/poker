@@ -1,22 +1,13 @@
 version: '3.8'
 
 services:
-  db:
-    image: mysql
-    command: --default-authentication-plugin=mysql_native_password
+  mongo:
+    image: mongo
+    restart: always
     environment:
-      MYSQL_USER: poker
-      MYSQL_PASSWORD: poker
-      MYSQL_DATABASE: poker
-      MYSQL_ROOT_PASSWORD: root
+      MONGO_INITDB_ROOT_USERNAME: ${mongodbUsername}
+      MONGO_INITDB_ROOT_PASSWORD: ${mongodbPassword}
     volumes:
-      - ./private/data:/var/lib/mysql
+      - ./private/mongodb/data:/data/db
     ports:
-      - 3306:3306
-
-  phpmyadmin:
-      image: phpmyadmin
-      ports:
-        - 3307:80
-      depends_on:
-        - db
+      - '27017:27017'

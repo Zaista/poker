@@ -1,29 +1,29 @@
 $(document).ready(function () {
 
 	// GAMEPLAY //
-	var cardHeight = 173;
-	var cardWidth = 124;
+	let cardHeight = 173;
+	let cardWidth = 124;
 
 	// hold the session's hi-score
-	var sessionScore = 0;
-	var totalScore = 0;
+	let sessionScore = 0;
+	let totalScore = 0;
 
 	// represents an index of a next card that will be drawn from the deck
-	var activeCard = 0;
+	let activeCard = 0;
 
-	// this will addup throughout the game so that cards that are drown latter will always be on top
-	var zIndex = 100;
+	// this will add up throughout the game so that cards that are drown latter will always be on top
+	let zIndex = 100;
 
 	// how many cards are pulled this round (1 - 5)
-	var card = 1;
+	let card = 1;
 
 	// round of a game (1 - 5)
-	var round = 1;
+	let round = 1;
 
 	// TODO add explanation
-	var offset = 30;
-	var margin = 100;
-	if ($(".card").width() == 60) {
+	let offset = 30;
+	let margin = 100;
+	if ($(".card").width() === 60) {
 		offset = 15;
 		margin = 60;
 		cardHeight = 83;
@@ -31,17 +31,17 @@ $(document).ready(function () {
 	}
 
 	// this will hold user hands
-	var hands = [[], [], [], [], []];
+	let hands = [[], [], [], [], []];
 
 	// deck of cards
-	var cards = [
+	let cards = [
 		"01s", "02s", "03s", "04s", "05s", "06s", "07s", "08s", "09s", "10s", "11s", "12s", "13s",
 		"01c", "02c", "03c", "04c", "05c", "06c", "07c", "08c", "09c", "10c", "11c", "12c", "13c",
 		"01h", "02h", "03h", "04h", "05h", "06h", "07h", "08h", "09h", "10h", "11h", "12h", "13h",
 		"01d", "02d", "03d", "04d", "05d", "06d", "07d", "08d", "09d", "10d", "11d", "12d", "13d"];
 
 	// hold the interval
-	var setFirstFive;
+	let setFirstFive;
 
 	// shuffle the cards before each game
 	shuffle(cards);
@@ -50,14 +50,14 @@ $(document).ready(function () {
 	startGame();
 
 	// get the scoreboard
-	var scoreboard = [];
+	let scoreboard = [];
 
 	getScoreboard();
 
 	// adjust layout
 	$("<style>.cards { width: " + cardWidth + "; height: " + cardHeight + "}</style>").appendTo("head");
 
-	var wrapperWidth = cardWidth * 5 + 5 * 2 * 2;
+	let wrapperWidth = cardWidth * 5 + 5 * 2 * 2;
 	$("#play-div-wrapper, #head-div-wrapper, #results-div-wrapper").width(wrapperWidth);
 	$("#results-div-wrapper span").width(cardWidth);
 
@@ -71,26 +71,25 @@ $(document).ready(function () {
 	});
 
 	// handle user score submit to hall of fame
-	$('#score-submit').submit(function () {
-
-		if ($.trim($("#name").val()).length == 0) {
+	$('#score-submit').on('click', () => {
+		if ($.trim($("#name").val()).length === 0) {
 			$("#name").parent().addClass("has-error");
 		} else {
 			$.post("/score", { name: $("#name").val(), score: totalScore }, function (data, status) {
-				if (status === 'success' && data === 'success') {
+				console.log(data)
+				console.log(status)
+				if (status === 'success' && data.success) {
 					$("#score-submit-dialog").modal('hide');
 					embrace($("#name").val(), totalScore);
 					$("#name").val("");
 				} else {
-					embrace();
+					embrace('', 0);
 				}
 			});
 		}
-		// prevent default behaviour
-		return false;
 	});
 
-	// hanlde showing back cards when clicked on them
+	// handle showing back cards when clicked on them
 	$(document).mousedown(function (evt) {
 		if (evt.target.tagName === "FIGURE") {
 			$(evt.target).parent().parent().addClass("popup");
@@ -103,15 +102,15 @@ $(document).ready(function () {
 
 	/**
 	 * Shuffle function will shuffle any array passed to it as an argument.
-	 * @param {array[string]} array - The array that will be shuffeled.
+	 * @param {array[string]} array - The array that will be shuffled.
 	 */
 	function shuffle(array) {
 		// for every element in array, counting down
-		for (var i = array.length - 1; i > 0; i--) {
-			// get a random index from unshuffled part of the array
-			var j = Math.floor(Math.random() * (i + 1));
+		for (let i = array.length - 1; i > 0; i--) {
+			// get a random index from non shuffled part of the array
+			let j = Math.floor(Math.random() * (i + 1));
 			// store an element at the end of the array to temporary variable
-			var temp = array[i];
+			let temp = array[i];
 			// set a random picked element to the end of the array
 			array[i] = array[j];
 			// set the element that was at the end in place of the random element
@@ -125,7 +124,7 @@ $(document).ready(function () {
 	 */
 	function startGame() {
 		// starting from 0 to 5
-		var counter = 0;
+		let counter = 0;
 
 		// set up the interval
 		clearInterval(setFirstFive);
@@ -135,10 +134,10 @@ $(document).ready(function () {
 			initialDraw(counter++);
 
 			// when done
-			if (counter == 5) {
+			if (counter === 5) {
 				clearInterval(setFirstFive);
 
-				// activate droppables
+				// activate drops
 				$(".deck-outline").each(function () {
 					showDroppable(this);
 				});
@@ -153,7 +152,7 @@ $(document).ready(function () {
 
 	/**
 	 * initialDraw will draw a card and automatically place it on a table.
-	 * @param {integer} counter - The counter tells where to put the drawn card.
+	 * @param {number} counter - The counter tells where to put the drawn card.
 	 */
 	function initialDraw(counter) {
 		drawCard();
@@ -173,9 +172,9 @@ $(document).ready(function () {
 		$(target).css("z-index", zIndex);
 
 		// get the position where the target will be moved
-		var position = $(destination).position();
-		var topOffset = $(destination).parent().height();
-		if ($(destination).attr("id") == "free-spot")
+		let position = $(destination).position();
+		let topOffset = $(destination).parent().height();
+		if ($(destination).attr("id") === "free-spot")
 			topOffset = 0;
 
 		// animate move and flip
@@ -202,7 +201,7 @@ $(document).ready(function () {
 
 
 	/**
-	 * setDraggable adds draggability to target element.
+	 * setDraggable adds dragging to target element.
 	 * @param {element} target - Element that should become draggable.
 	 */
 	function setDraggable(target) {
@@ -215,7 +214,7 @@ $(document).ready(function () {
 
 
 	/**
-	 * removeDraggable removes draggability to target element.
+	 * removeDraggable removes dragging to target element.
 	 * @param {element} target - Element that should no longer be draggable.
 	 */
 	function removeDraggable(target) {
@@ -223,7 +222,7 @@ $(document).ready(function () {
 	}
 
 	/**
-	 * showDroppable adds droppability to a provided element.
+	 * showDroppable adds dropping to a provided element.
 	 * @param {element} target - Element that should become droppable.
 	 */
 	function showDroppable(target) {
@@ -242,7 +241,7 @@ $(document).ready(function () {
 	}
 
 	/**
-	 * hideDroppable removes droppability to target element.
+	 * hideDroppable removes dropping to target element.
 	 * @param {element} target - Element that should no longer be droppable.
 	 */
 	function hideDroppable(target) {
@@ -260,7 +259,7 @@ $(document).ready(function () {
 	 */
 	function resolve(droppable, draggable) {
 		// check if last card was placed and end the game
-		if (round == 4 && card == 5) {
+		if (round === 4 && card === 5) {
 			hideDroppable(droppable);
 			removeDraggable(draggable);
 			hands[$(droppable).attr("tag")].push(cards[activeCard - 1]);
@@ -273,12 +272,12 @@ $(document).ready(function () {
 				card = 1;
 				round++;
 			}
-			var ele = $(".open > .card");
+			let ele = $(".open > .card");
 			setDraggable($(ele).parent());
 			goTo($(ele).parent(), $("#free-spot"));
 			$(ele).addClass("flipped");
 			hideDroppable(droppable);
-			if (card == 1) {
+			if (card === 1) {
 				$(".deck-outline").each(function () {
 					showDroppable(this);
 				});
@@ -286,7 +285,7 @@ $(document).ready(function () {
 			$(draggable).draggable("destroy");
 		}
 		$(droppable).css("margin-top", "+=" + offset + "px");
-		var topOffset = $(droppable).parent().height();
+		let topOffset = $(droppable).parent().height();
 		$(draggable).animate({
 			top: $(droppable).position().top + topOffset,
 			left: $(droppable).position().left,
@@ -299,11 +298,11 @@ $(document).ready(function () {
 	 * @param {array[array[string]]} hands - two dimensional array of strings that represents all user hands.
 	 */
 	function endGame(hands) {
-		var result = $("#results-div span");
+		let result = $("#results-div span");
 		totalScore = 0;
 
-		for (var i = 0; i < hands.length; i++) {
-			var hand = rankHand(hands[i]);
+		for (let i = 0; i < hands.length; i++) {
+			let hand = rankHand(hands[i]);
 			totalScore += hand;
 			$(result[i]).html(hand);
 		}
@@ -331,21 +330,21 @@ $(document).ready(function () {
 		});
 
 
-		var suits = true;
-		var straight = true;
+		let suits = true;
+		let straight = true;
 
 		// use buckets where cards with same numbers will be placed in order to calculate other combinations
-		var bucket = [];
+		let bucket = [];
 
 		// go through all cards in a hand
-		for (var i = 0; i < 5; i++) {
+		for (let i = 0; i < 5; i++) {
 
 			// get current card number
-			var currentNumber = parseInt(hand[i].substring(0, 2));
+			let currentNumber = parseInt(hand[i].substring(0, 2));
 
-			if (i != 4) {
+			if (i !== 4) {
 				// get next card number
-				var nextNumber = parseInt(hand[i + 1].substring(0, 2));
+				let nextNumber = parseInt(hand[i + 1].substring(0, 2));
 
 				// check suit
 				if (suits && hand[i].charAt(2) !== hand[i + 1].charAt(2)) {
@@ -362,9 +361,9 @@ $(document).ready(function () {
 				}
 			}
 
-			var match = false;
+			let match = false;
 			// go through each bucket
-			for (var k = 0; k < bucket.length; k++) {
+			for (let k = 0; k < bucket.length; k++) {
 				// pick up a first card (other cards don't matter as thir number is the same) and compare its number with current hand
 				if (bucket[k][0] === currentNumber) {
 					// if it's the same place it in a bucket
@@ -408,9 +407,9 @@ $(document).ready(function () {
 	 * removeCards will animate all the cards on the table back to deck.
 	 */
 	function removeCards() {
-		var destination = $(".static")[0];
+		let destination = $(".static")[0];
 		$(".cards:not(.static,#free-spot,.deck-outline)").each(function () {
-			var position = $(destination).position();
+			let position = $(destination).position();
 			// animate move and flip
 			$(this).animate({ "margin-left": "0" }, { duration: 300, queue: false });
 			$(this).animate({ "left": position.left }, { duration: 300, queue: false });
@@ -433,7 +432,7 @@ $(document).ready(function () {
 		card = 1;
 		round = 1;
 		activeCard = 0;
-		// disable droppables
+		// disable dropping
 		$(".deck-outline").each(function () {
 			if ($(this).hasClass("pointer"))
 				hideDroppable(this);
@@ -446,8 +445,9 @@ $(document).ready(function () {
 	}
 
 	/**
-	 * embrace will dispaly cool welcome to the hall fame thingie.
-	 * @param {boolean} flag - If true, score was added to database.
+	 * embrace will display cool welcome to the hall fame
+	 * @param {string} name - name of the player
+	 * @param {number} score - score of the player
 	 */
 	function embrace(name, score) {
 		if (name) {
@@ -488,11 +488,11 @@ $(document).ready(function () {
 	 */
 	function getScoreboard() {
 		scoreboard = [];
-		$.get("score", function (data, status) {
-			if (status === "success" && data != "failed") {
-				var response = JSON.parse(data);
-				for (var i = 0; i < response.length; i++) {
-					scoreboard.push([response[i][0], response[i][1]]);
+		$.get("score", function (response, status) {
+			if (status === "success") {
+				// var response = JSON.parse(data);
+				for (let i = 0; i < response.length; i++) {
+					scoreboard.push([response[i].name, response[i].score]);
 				}
 				updateHiScore();
 			}
@@ -503,9 +503,9 @@ $(document).ready(function () {
 	 * updateHiScore will fill the hi score table with values provided.
 	 */
 	function updateHiScore() {
-		for (var i = 0; i < scoreboard.length; i++) {
-			if (scoreboard[i] != undefined) {
-				var tableRow = $("#scoreboard tr").eq(i + 2);
+		for (let i = 0; i < scoreboard.length; i++) {
+			if (scoreboard[i] !== undefined) {
+				let tableRow = $("#scoreboard tr").eq(i + 2);
 				$(tableRow).html("<td>" + (i + 1) + ".</td><td>" + scoreboard[i][0] + "</td><td>" + scoreboard[i][1] + "</td>");
 			}
 		}
@@ -515,8 +515,8 @@ $(document).ready(function () {
 	 * addScore will add score to scoreboard and remove excess item if necessary.
 	 */
 	function addScore(name, score) {
-		var flag = true;
-		for (var i = 0; i < scoreboard.length; i++) {
+		let flag = true;
+		for (let i = 0; i < scoreboard.length; i++) {
 			if (scoreboard[i][1] < score) {
 				flag = false;
 				scoreboard.splice(i, 0, [name, score]);

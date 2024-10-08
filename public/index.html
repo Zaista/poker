@@ -202,25 +202,24 @@
 		<!-- HALL OF FAME DIALOG -->
 		<div class="modal fade" id="score-submit-dialog" data-backdrop="static" role="dialog">
 			<div class="modal-dialog" role="document">
-				<form id="score-submit" method="post">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-							<h4 class="modal-title">CONGRATULATIONS</h4>
-						</div>
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">CONGRATULATIONS</h4>
+					</div>
 
-						<div class="modal-body">
-							<p>You just made a new <b>ALL TIME HIGH SCORE</b>.<br>Submit your name and it will be listed in the hi-score table:</p>
-							<div class="input-group" style="width: 100%;">
-								<input name="name" id="name" type="text" class="form-control" placeholder="Name">
-							</div>
-						</div>
-
-						<div class="modal-footer">
-							<button type="submit" class="btn btn-success">Submit</button>
+					<div class="modal-body">
+						<p>You just made a new <b>ALL-TIME HIGH SCORE</b>.<br>Submit your name, and it will be listed in the hi-score table:</p>
+						<div class="input-group" style="width: 100%;">
+							<label class="form-control" for="name"></label>
+							<input name="name" id="name" type="text" class="form-control" placeholder="Name">
 						</div>
 					</div>
-				</form>
+
+					<div class="modal-footer">
+						<button id="score-submit" class="btn btn-success">Submit</button>
+					</div>
+				</div>
 			</div>
 		</div>
 
