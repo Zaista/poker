@@ -6,4 +6,4 @@ const ScoreSchema = new mongoose_1.Schema({
     name: { type: String, required: true },
     score: { type: Number, required: true }
 });
-exports.ScoreModel = (0, mongoose_1.model)('Player', ScoreSchema);
+exports.ScoreModel = (0, mongoose_1.model)('Score', ScoreSchema);

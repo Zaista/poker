@@ -16,7 +16,12 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const score_1 = require("./score");
-dotenv_1.default.config();
+const logger_1 = require("./logger");
+const log = (0, logger_1.getLogger)('app');
+if (process.env.profile !== 'production') {
+    log.debug('Environment variables loaded from the .env file');
+    dotenv_1.default.config();
+}
 const app = (0, express_1.default)();
 app.use(express_1.default.static('./public', { redirect: false }));
 app.use(express_1.default.json());
@@ -30,20 +35,20 @@ app.get('/score', (_req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.json(scores);
     }
     catch (error) {
-        console.error("Error fetching users:", error);
+        log.error("Error fetching users:", error);
         res.status(500).send("Internal Server Error");
     }
 }));
 app.post('/score', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const score = yield (0, score_1.addScore)(req.body.name, req.body.score);
-    console.log(score);
+    yield (0, score_1.addScore)(req.body.name, req.body.score);
     res.send({ success: 'Score submitted.' });
 }));
-app.listen(3000, () => {
-    console.log('Server running on port 3000');
+// Listen to the App Engine-specified port, or 3000 otherwise
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    log.info('Server running on port 3000');
 });
 const uri = process.env.mongodbUri;
-console.log(uri);
 mongoose_1.default.connect(uri)
-    .then(() => console.log("MongoDB connected"))
-    .catch(err => console.error("MongoDB connection error:", err));
+    .then(() => log.info("MongoDB connected"))
+    .catch(err => log.error("MongoDB connection error:", err));

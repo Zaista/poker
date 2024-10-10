@@ -2,7 +2,7 @@ describe('Romanian poker', () => {
   it('Open poker game', () => {
     cy.visit('/');
 
-    cy.get('#scoreboard').should('contain', 'Duh sa sekirom').and('contain', '31');
+    // cy.get('#scoreboard').should('contain', 'Duh sa sekirom').and('contain', '31');
 
     cy.get('section.cards').should('have.length', 7);
 

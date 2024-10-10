@@ -12,6 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.addScore = addScore;
 exports.listScores = listScores;
 const Score_1 = require("./models/Score");
+const logger_1 = require("./logger");
+const log = (0, logger_1.getLogger)('score');
 function addScore(name, score) {
     return __awaiter(this, void 0, void 0, function* () {
         const newScore = new Score_1.ScoreModel({
@@ -19,21 +21,21 @@ function addScore(name, score) {
             score: score,
         });
         try {
-            const score_1 = yield newScore.save();
-            console.log("User saved successfully:", score_1);
+            const score = yield newScore.save();
+            log.info(`Score saved successfully: ${score.name} (${score.score})`);
         }
         catch (error) {
-            console.error("Error saving user:", error);
+            log.error("Error saving user:", error);
         }
     });
 }
 function listScores() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            return yield Score_1.ScoreModel.find({});
+            return yield Score_1.ScoreModel.find({}).sort({ score: -1 });
         }
         catch (error) {
-            console.error("Error fetching score:", error);
+            log.error("Error fetching score:", error);
             return [];
         }
     });
