@@ -10,4 +10,4 @@ const ScoreSchema = new Schema({
     score: { type: Number, required: true }
 });
 
-export const ScoreModel = model<Score>('Player', ScoreSchema);
+export const ScoreModel = model<Score>('Score', ScoreSchema);
