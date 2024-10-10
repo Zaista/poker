@@ -34,7 +34,9 @@ app.post('/score', async (req: Request, res: Response) => {
     res.send({success: 'Score submitted.'})
 });
 
-app.listen(3000, () => {
+// Listen to the App Engine-specified port, or 3000 otherwise
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
     log.info('Server running on port 3000');
 });
 

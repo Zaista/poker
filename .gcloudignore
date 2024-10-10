@@ -12,9 +12,10 @@
 # below:
 .git
 .gitignore
+.env
 
-# PHP Composer dependencies:
-/vendor/
-
-# Node dependencies:
+# local development files:
+/private
+/node_modules
 /test/node_modules
+docker-compose.yaml
