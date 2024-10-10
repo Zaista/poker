@@ -14,10 +14,6 @@ app.get('/', (req, res) => {
     res.sendFile('public/index.html', {root: '.'});
 });
 
-type Score = {
-    name: string
-    score: number
-}
 app.get('/score', async (_req: Request, res: Response) => {
     try {
         const scores = await listScores()
@@ -29,8 +25,7 @@ app.get('/score', async (_req: Request, res: Response) => {
 });
 
 app.post('/score', async (req: Request, res: Response) => {
-    const score = await addScore(req.body.name, req.body.score);
-    console.log(score)
+    await addScore(req.body.name, req.body.score);
     res.send({success: 'Score submitted.'})
 });
 
@@ -39,7 +34,6 @@ app.listen(3000, () => {
 });
 
 const uri = process.env.mongodbUri as string
-console.log(uri)
 mongoose.connect(uri)
     .then(() => console.log("MongoDB connected"))
     .catch(err => console.error("MongoDB connection error:", err));
