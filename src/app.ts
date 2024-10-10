@@ -2,8 +2,13 @@ import mongoose from 'mongoose';
 import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
 import {addScore, listScores} from "./score";
+import { getLogger } from './logger';
 
-dotenv.config();
+const log = getLogger('app');
+if (process.env.profile !== 'production') {
+    log.debug('Environment variables loaded from the .env file');
+    dotenv.config();
+}
 
 const app = express();
 app.use(express.static('./public', {redirect: false}));
@@ -19,7 +24,7 @@ app.get('/score', async (_req: Request, res: Response) => {
         const scores = await listScores()
         res.json(scores);
     } catch (error) {
-        console.error("Error fetching users:", error);
+        log.error("Error fetching users:", error);
         res.status(500).send("Internal Server Error");
     }
 });
@@ -30,10 +35,10 @@ app.post('/score', async (req: Request, res: Response) => {
 });
 
 app.listen(3000, () => {
-    console.log('Server running on port 3000');
+    log.info('Server running on port 3000');
 });
 
 const uri = process.env.mongodbUri as string
 mongoose.connect(uri)
-    .then(() => console.log("MongoDB connected"))
-    .catch(err => console.error("MongoDB connection error:", err));
+    .then(() => log.info("MongoDB connected"))
+    .catch(err => log.error("MongoDB connection error:", err));

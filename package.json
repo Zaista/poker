@@ -7,7 +7,9 @@
     "test": "test"
   },
   "scripts": {
-    "build": "tsc -w",
+    "build": "tsc",
+    "build:watch": "tsc -w",
+    "prestart": "npm run build",
     "start": "node ./dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -21,6 +23,7 @@
   "dependencies": {
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
+    "log4js": "^6.9.1",
     "mongoose": "^8.7.0"
   },
   "devDependencies": {

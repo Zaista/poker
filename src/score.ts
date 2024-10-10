@@ -1,5 +1,7 @@
 import { ScoreModel } from './models/Score';
+import { getLogger } from './logger';
 
+const log = getLogger('score');
 export async function addScore(name: string, score: number) {
     const newScore = new ScoreModel({
         name: name,
@@ -7,18 +9,18 @@ export async function addScore(name: string, score: number) {
     });
 
     try {
-        const score_1 = await newScore.save();
-        console.log("User saved successfully:", score_1);
+        const score = await newScore.save();
+        log.info(`Score saved successfully: ${score.name} (${score.score})`);
     } catch (error) {
-        console.error("Error saving user:", error);
+        log.error("Error saving user:", error);
     }
 }
 
 export async function listScores()  {
     try {
-        return await ScoreModel.find({})
+        return await ScoreModel.find({}).sort({score: -1})
     } catch(error) {
-        console.error("Error fetching score:", error);
+        log.error("Error fetching score:", error);
         return []
     }
 }

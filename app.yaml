@@ -1,6 +1,11 @@
-runtime: php74
+runtime: nodejs20
 service: poker
 
 handlers:
-- url: /images
-  static_dir: public/images
+  - url: /.*
+    script: auto
+    secure: always
+
+env_variables:
+  profile: ##_PROFILE##
+  mongodbUri: ##_MONGOURI##
