@@ -49,6 +49,7 @@ app.listen(PORT, () => {
     log.info('Server running on port 3000');
 });
 const uri = process.env.mongodbUri;
+console.log(uri);
 mongoose_1.default.connect(uri)
     .then(() => log.info("MongoDB connected"))
     .catch(err => log.error("MongoDB connection error:", err));
