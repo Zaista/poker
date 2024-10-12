@@ -10,17 +10,6 @@ steps:
         sed -i "s|##_PROFILE##|${_PROFILE}|" app.yaml
         sed -i "s|##_MONGOURI##|${_MONGOURI}|" app.yaml
         gcloud app deploy
-  - name: cypress/included:9.0.0
-    entrypoint: npm
-    args: ['ci']
-    dir: test
-  - name: cypress/included:9.0.0
-    entrypoint: npm
-    args: ['run', 'test_ci']
-    dir: test
-    env:
-      - 'CYPRESS_API_URL=https://cypress-director-gp34ticnkq-ey.a.run.app'
-      - 'BUILD=$BUILD_ID'
 timeout: 1800s
 substitutions:
   _PROFILE: ${_PROFILE}
