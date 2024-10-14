@@ -8,13 +8,14 @@
     "test": "test"
   },
   "scripts": {
-    "prebuild": "rimraf ./dist && npm run format",
+    "prebuild": "rimraf ./dist && npm run lint && npm run format",
     "build": "tsc",
     "build:watch": "tsc -w",
     "prestart": "npm run build",
     "start": "node ./dist/app.js",
     "format": "npx prettier . --write",
     "format:check": "npx prettier . --check",
+    "lint": "npx eslint .",
     "test": "cypress open --e2e --browser chrome"
   },
   "keywords": [
@@ -33,9 +34,13 @@
     "rimraf": "^6.0.1"
   },
   "devDependencies": {
+    "@eslint/js": "^9.12.0",
+    "@types/eslint__js": "^8.42.3",
     "@types/express": "^5.0.0",
     "@types/node": "^22.7.5",
+    "eslint": "^9.12.0",
     "prettier": "3.3.3",
-    "typescript": "^5.6.2"
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.9.0"
   }
 }

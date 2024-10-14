@@ -15,7 +15,7 @@ app.use(express.static('./public', { redirect: false }))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true, limit: '20mb' })) // for parsing application/x-www-form-urlencoded
 
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
   res.sendFile('public/index.html', { root: '.' })
 })
 
@@ -29,13 +29,18 @@ app.get('/score', async (_req: Request, res: Response) => {
   }
 })
 
-app.post('/score', async (req: Request, res: Response) => {
+interface Score {
+  name: string,
+  score: number
+}
+
+app.post('/score', async (req: Request<Record<string, unknown>, unknown, Score>, res: Response) => {
   await addScore(req.body.name, req.body.score)
   res.send({ success: 'Score submitted.' })
 })
 
 // Listen to the App Engine-specified port, or 3000 otherwise
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT ?? 3000
 app.listen(PORT, () => {
   log.info('Server running on port 3000')
 })
@@ -43,5 +48,9 @@ app.listen(PORT, () => {
 const uri = process.env.mongodbUri as string
 mongoose
   .connect(uri)
-  .then(() => log.info('MongoDB connected'))
-  .catch((err) => log.error('MongoDB connection error:', err))
+  .then(() => {
+    log.info('MongoDB connected')
+  })
+  .catch((err: unknown) => {
+    log.error('MongoDB connection error:', err)
+  })

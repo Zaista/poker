@@ -135,8 +135,6 @@ $(document).ready(function () {
         '/score',
         { name: $('#name').val(), score: totalScore },
         function (data, status) {
-          console.log(data)
-          console.log(status)
           if (status === 'success' && data.success) {
             $('#score-submit-dialog').modal('hide')
             embrace($('#name').val(), totalScore)
@@ -156,7 +154,7 @@ $(document).ready(function () {
         $(evt.target).parent().parent().addClass('popup')
       }
     })
-    .mouseup(function (evt) {
+    .mouseup(function () {
       if ($('.popup')) {
         $('.popup').removeClass('popup')
       }
@@ -433,11 +431,11 @@ $(document).ready(function () {
 
       let match = false
       // go through each bucket
-      for (let k = 0; k < bucket.length; k++) {
-        // pick up a first card (other cards don't matter as thir number is the same) and compare its number with current hand
-        if (bucket[k][0] === currentNumber) {
+      for (let card of bucket) {
+        // pick up a first card (other cards don't matter as third number is the same) and compare it's number with current hand
+        if (card[0] === currentNumber) {
           // if it's the same place it in a bucket
-          bucket[k].push(currentNumber)
+          card.push(currentNumber)
           match = true
           break
         }
@@ -561,8 +559,8 @@ $(document).ready(function () {
     $.get('score', function (response, status) {
       if (status === 'success') {
         // var response = JSON.parse(data);
-        for (let i = 0; i < response.length; i++) {
-          scoreboard.push([response[i].name, response[i].score])
+        for (let score of response) {
+          scoreboard.push([score.name, score.score])
         }
         updateHiScore()
       }
