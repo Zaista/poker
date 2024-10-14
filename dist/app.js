@@ -35,8 +35,8 @@ app.get('/score', (_req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.json(scores);
     }
     catch (error) {
-        log.error("Error fetching users:", error);
-        res.status(500).send("Internal Server Error");
+        log.error('Error fetching users:', error);
+        res.status(500).send('Internal Server Error');
     }
 }));
 app.post('/score', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -49,7 +49,7 @@ app.listen(PORT, () => {
     log.info('Server running on port 3000');
 });
 const uri = process.env.mongodbUri;
-console.log(uri);
-mongoose_1.default.connect(uri)
-    .then(() => log.info("MongoDB connected"))
-    .catch(err => log.error("MongoDB connection error:", err));
+mongoose_1.default
+    .connect(uri)
+    .then(() => log.info('MongoDB connected'))
+    .catch((err) => log.error('MongoDB connection error:', err));

@@ -25,7 +25,7 @@ function addScore(name, score) {
             log.info(`Score saved successfully: ${score.name} (${score.score})`);
         }
         catch (error) {
-            log.error("Error saving user:", error);
+            log.error('Error saving user:', error);
         }
     });
 }
@@ -35,7 +35,7 @@ function listScores() {
             return yield Score_1.ScoreModel.find({}).sort({ score: -1 });
         }
         catch (error) {
-            log.error("Error fetching score:", error);
+            log.error('Error fetching score:', error);
             return [];
         }
     });
