@@ -1,8 +1,9 @@
-import eslint from '@eslint/js';
-import tseslint from 'typescript-eslint';
+import eslint from '@eslint/js'
+import tseslint from 'typescript-eslint'
 
 export default tseslint.config(
   eslint.configs.recommended,
+  ...tseslint.configs.recommendedTypeChecked,
   ...tseslint.configs.strictTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
   {
@@ -10,17 +11,22 @@ export default tseslint.config(
       parserOptions: {
         projectService: true,
         tsconfigRootDir: import.meta.dirname,
-        allowDefaultProject: true
+        allowDefaultProject: true,
       },
       globals: {
-        $: "readonly",
-        setTimeout: "readonly",
-        clearInterval: "readonly",
-        setInterval: "readonly",
-        document: "readonly",
-      }
+        $: 'readonly',
+        setTimeout: 'readonly',
+        clearInterval: 'readonly',
+        setInterval: 'readonly',
+        document: 'readonly',
+      },
     },
-  }, {
-    ignores: ["dist/*"]
+  },
+  {
+    ignores: ['cypress/*', 'cypress.config.ts'],
+  },
+  {
+    files: ['**/*.js'],
+    ...tseslint.configs.disableTypeChecked,
   }
-);
+)

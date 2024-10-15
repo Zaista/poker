@@ -30,14 +30,20 @@ app.get('/score', async (_req: Request, res: Response) => {
 })
 
 interface Score {
-  name: string,
+  name: string
   score: number
 }
 
-app.post('/score', async (req: Request<Record<string, unknown>, unknown, Score>, res: Response) => {
-  await addScore(req.body.name, req.body.score)
-  res.send({ success: 'Score submitted.' })
-})
+app.post(
+  '/score',
+  async (
+    req: Request<Record<string, unknown>, unknown, Score>,
+    res: Response
+  ) => {
+    await addScore(req.body.name, req.body.score)
+    res.send({ success: 'Score submitted.' })
+  }
+)
 
 // Listen to the App Engine-specified port, or 3000 otherwise
 const PORT = process.env.PORT ?? 3000
@@ -45,9 +51,8 @@ app.listen(PORT, () => {
   log.info('Server running on port 3000')
 })
 
-const uri = process.env.mongodbUri as string
 mongoose
-  .connect(uri)
+  .connect(process.env.mongodbUri ?? '')
   .then(() => {
     log.info('MongoDB connected')
   })

@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(function () {
   // GAMEPLAY //
   let cardHeight = 173
   let cardWidth = 124
@@ -104,11 +104,7 @@ $(document).ready(function () {
 
   // adjust layout
   $(
-    '<style>.cards { width: ' +
-      cardWidth +
-      '; height: ' +
-      cardHeight +
-      '}</style>'
+    `<style>.cards { width: ${cardWidth.toString()}; height: ${cardHeight.toString()}}</style>`
   ).appendTo('head')
 
   let wrapperWidth = cardWidth * 5 + 5 * 2 * 2
@@ -117,9 +113,9 @@ $(document).ready(function () {
   )
   $('#results-div-wrapper span').width(cardWidth)
 
-  $('#play-div').height('+=' + offset * 4 + 'px')
+  $('#play-div').height(`+=${offset * 4}px`)
 
-  $('#restart').click(function () {
+  $('#restart').on('click', function () {
     $('html,body').animate({ scrollTop: 0 }, 'slow')
     removeCards()
     resetGame()
@@ -149,12 +145,12 @@ $(document).ready(function () {
 
   // handle showing back cards when clicked on them
   $(document)
-    .mousedown(function (evt) {
+    .on('mousedown', function (evt) {
       if (evt.target.tagName === 'FIGURE') {
         $(evt.target).parent().parent().addClass('popup')
       }
     })
-    .mouseup(function () {
+    .on('mouseup', function () {
       if ($('.popup')) {
         $('.popup').removeClass('popup')
       }

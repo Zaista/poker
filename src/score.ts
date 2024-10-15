@@ -10,7 +10,9 @@ export async function addScore(name: string, score: number) {
 
   try {
     const score = await newScore.save()
-    log.info(`Score saved successfully: ${score.name} (${score.score})`)
+    log.info(
+      `Score saved successfully: ${score.name} (${score.score.toString()})`
+    )
   } catch (error) {
     log.error('Error saving user:', error)
   }
