@@ -2,7 +2,7 @@ steps:
   - name: node
     entrypoint: npm
     args: ['install']
-  - name: "gcr.io/cloud-builders/gcloud"
+  - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
     args:
       - '-c'

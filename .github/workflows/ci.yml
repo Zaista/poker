@@ -6,13 +6,22 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Cypress run
-        uses: cypress-io/github-action@v6
-        with:
-          start: npm start
-          wait-on: 'http://localhost:3000' # Waits for above
-          record: true
-          parallel: false # Runs test in parallel using settings above
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Start services
+        uses: hoverkraft-tech/compose-action@v2.0.1
+
+      - name: Install
+        run: npm ci
+
+#      - name: Format check
+#        run: npm run format
+
+      - name: Start app locally
+        run: |
+          nohup npm run start
+
+      - name: Start tests
+        run: |
+          cd e2e
+          npm i
+          npm run test:ci

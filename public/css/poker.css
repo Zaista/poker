@@ -1,193 +1,193 @@
 body {
-	background-color: #006A28 !important;
+  background-color: #006a28 !important;
 }
 
 #table {
-	padding-top: 50px;
-	position: relative;
-	clear: left;
+  padding-top: 50px;
+  position: relative;
+  clear: left;
 }
 
 #results-div {
-	height: 60px;
-	text-align: center;
-	color: white;
+  height: 60px;
+  text-align: center;
+  color: white;
 }
 
 #total-results-div-wrapper {
-	margin-top: 25px;
+  margin-top: 25px;
 }
 
 #total-results-div-wrapper p {
-	margin: 0;
-	font-size: 150%;
+  margin: 0;
+  font-size: 150%;
 }
 
 #play-div-wrapper,
 #head-div-wrapper,
 #results-div-wrapper {
-	margin: 0 auto;
+  margin: 0 auto;
 }
 
 #play-div-wrapper:after,
 #head-div-wrapper:after,
 #results-div-wrapper:after {
-   content: " ";
-   display: block;
-   height: 0;
-   clear: both;
+  content: ' ';
+  display: block;
+  height: 0;
+  clear: both;
 }
 
 #results-div-wrapper span {
-	display: inline-block;
-	float: left;
-	margin: 20px 2px;
+  display: inline-block;
+  float: left;
+  margin: 20px 2px;
 }
 
 #points {
-	padding-top: 70px;
+  padding-top: 70px;
 }
 
 table td {
-	color: white;
+  color: white;
 }
 
 #points th {
-	padding-bottom: 10px;
-	color: white;
+  padding-bottom: 10px;
+  color: white;
 }
 
 #score {
-	color: white;
-	margin-top: 100px;
+  color: white;
+  margin-top: 100px;
 }
 
 #scoreboard {
-	margin-top: 70px;
-	color: white;
+  margin-top: 70px;
+  color: white;
 }
 
 .cards {
-	position: absolute;
-	perspective: 800px;
-	background-size: contain;
-	display: inline-block;
-	z-index: 100;
-	margin: 20px 2px;
+  position: absolute;
+  perspective: 800px;
+  background-size: contain;
+  display: inline-block;
+  z-index: 100;
+  margin: 20px 2px;
 }
 
 .cards.static {
-	position: relative;
+  position: relative;
 }
 
 .card {
-	position: absolute;
-	height: 100%;
-	width: 100%;
-	transform-style: preserve-3d;
-	transition: transform 0.5s;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
 }
 
 .card figure {
-	margin: 0;
-	display: block;
-	position: absolute;
-	height: 100%;
-	width: 100%;
-	backface-visibility: hidden;
+  margin: 0;
+  display: block;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  backface-visibility: hidden;
 }
 
 .card .card-front {
-	background-size: contain;
-	background-image: url("../images/cards/bb.png");
+  background-size: contain;
+  background-image: url('../images/cards/bb.png');
 }
 
 .card .card-back {
-	background-size: contain;
-	transform: rotateY( -180deg );
+  background-size: contain;
+  transform: rotateY(-180deg);
 }
 
 .card.flipped {
-	transform: rotateY( -180deg );
+  transform: rotateY(-180deg);
 }
 
 .deck-outline {
-	position: relative;
-	display: inline-block;
-	float: left;
-	border-radius: 10px;
-	z-index: 1000;
+  position: relative;
+  display: inline-block;
+  float: left;
+  border-radius: 10px;
+  z-index: 1000;
 }
 
 .pointer {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 #free-spot {
-	border-radius: 10px;
-	z-index: 1;
-	opacity: 0;
+  border-radius: 10px;
+  z-index: 1;
+  opacity: 0;
 }
 
 .drop-hint {
-	border: 1px solid lightblue;
-	opacity: 0.5;
+  border: 1px solid lightblue;
+  opacity: 0.5;
 }
 
 .drop-highlight {
-	background-color: grey;
-	opacity: 0.3;
+  background-color: grey;
+  opacity: 0.3;
 }
 
 .popup {
-	z-index: 2000 !important;
+  z-index: 2000 !important;
 }
 
 #hall-wall {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	z-index: 3000;
-	background-color: grey;
-	opacity: 0;
-    text-align: center;
-    display: table;
-	visibility: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3000;
+  background-color: grey;
+  opacity: 0;
+  text-align: center;
+  display: table;
+  visibility: hidden;
 
-    -webkit-transition: opacity 1s;
-    -moz-transition: opacity 1s;
-    transition: opacity 1s;
+  -webkit-transition: opacity 1s;
+  -moz-transition: opacity 1s;
+  transition: opacity 1s;
 }
 
 #hall-wall > div {
-    display: table-cell;
-    vertical-align: middle;
+  display: table-cell;
+  vertical-align: middle;
 }
 
 #hall-text {
-	opacity: 1;
-	font-size: 18em;
-	color: black;
+  opacity: 1;
+  font-size: 18em;
+  color: black;
 }
 
 @media only screen and (max-width: 750px) {
-    /* For mobile phones: */
+  /* For mobile phones: */
 
-	.cards {
-		width: 60px;
-	}
+  .cards {
+    width: 60px;
+  }
 
-	#results-div-wrapper span {
-		margin: 10px 2px;
-	}
+  #results-div-wrapper span {
+    margin: 10px 2px;
+  }
 
-	#points {
-		padding-top: 50px;
-	}
+  #points {
+    padding-top: 50px;
+  }
 
-	#scoreboard {
-		margin-top: 20px;
-	}
+  #scoreboard {
+    margin-top: 20px;
+  }
 }
