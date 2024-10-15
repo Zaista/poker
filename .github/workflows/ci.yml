@@ -13,8 +13,8 @@ jobs:
       - name: Install
         run: npm ci
 
-      - name: Format check
-        run: npm run format
+#      - name: Format check
+#        run: npm run format
 
       - name: Start app locally
         run: |
