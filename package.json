@@ -8,14 +8,16 @@
     "test": "test"
   },
   "scripts": {
-    "prebuild": "rimraf ./dist && npm run lint && npm run format",
+    "prebuild": "rimraf ./dist && npm run lint:fix && npm run prettier:fix",
     "build": "tsc",
     "build:watch": "tsc -w",
     "prestart": "npm run build",
     "start": "node ./dist/app.js",
-    "format": "npx prettier . --write",
-    "format:check": "npx prettier . --check",
+    "prettier": "npx prettier . --check",
+    "prettier:fix": "npx prettier . --write",
     "lint": "npx eslint .",
+    "lint:fix": "npx eslint . --fix",
+    "format": "npm run lint && npm run prettier",
     "test": "cypress open --e2e --browser chrome"
   },
   "keywords": [
