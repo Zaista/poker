@@ -1,8 +1,8 @@
 import mongoose from 'mongoose'
 import express, { Request, Response } from 'express'
 import dotenv from 'dotenv'
-import { addScore, listScores } from './score'
-import { getLogger } from './logger'
+import { addScore, listScores } from './score.js'
+import { getLogger } from './logger.js'
 
 const log = getLogger('app')
 if (process.env.profile !== 'production') {

@@ -1,5 +1,5 @@
-import { ScoreModel } from './models/Score'
-import { getLogger } from './logger'
+import { ScoreModel } from './models/Score.js'
+import { getLogger } from './logger.js'
 
 const log = getLogger('score')
 export async function addScore(name: string, score: number) {
