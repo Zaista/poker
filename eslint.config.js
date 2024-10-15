@@ -23,7 +23,7 @@ export default tseslint.config(
     },
   },
   {
-    ignores: ['dist', 'e2e'],
+    ignores: ['dist', 'e2e', 'private'],
   },
   {
     files: ['**/*.js'],
