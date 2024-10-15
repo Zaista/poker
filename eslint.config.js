@@ -23,7 +23,7 @@ export default tseslint.config(
     },
   },
   {
-    ignores: ['dist', 'cypress', 'cypress.config.ts'],
+    ignores: ['dist', 'e2e'],
   },
   {
     files: ['**/*.js'],

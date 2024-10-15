@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ES2020",
     "module": "CommonJS",
-    "types": ["node", "express", "cypress"],
+    "types": ["node", "express"],
     "outDir": "./dist",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
@@ -10,5 +10,5 @@
     "skipLibCheck": true,
     "moduleResolution": "node"
   },
-  "exclude": ["cypress", "cypress.config.ts"]
+  "exclude": ["e2e", "cypress.config.ts"]
 }
