@@ -14,7 +14,7 @@
     "prestart": "npm run build",
     "start": "node ./dist/app.js",
     "prettier": "npx prettier . --check '!./private'",
-    "prettier:fix": "npx prettier . --write",
+    "prettier:fix": "npx prettier . --write '!./private'",
     "lint": "npx eslint .",
     "lint:fix": "npx eslint . --fix",
     "format": "npm run lint && npm run prettier"
