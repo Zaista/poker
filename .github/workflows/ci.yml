@@ -16,6 +16,9 @@ jobs:
       - name: Format check
         run: npm run format
 
+      - name: Build app
+        run: npm run build
+
       - name: Start app in the background
         run: npm run start:background
 
