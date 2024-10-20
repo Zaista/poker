@@ -16,11 +16,8 @@ jobs:
       - name: Format check
         run: npm run format
 
-      - name: Start app locally
-        run: |
-          npm start $
-          disown
-          sleep 10
+      - name: Start app in the background
+        run: npm run start:background
 
       - name: Start tests
         run: |
@@ -29,4 +26,4 @@ jobs:
           npm run test:ci
 
       - name: Stop app
-        run: kill $(jobs -p) || true
+        run: npm run stop:background
