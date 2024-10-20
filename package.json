@@ -17,7 +17,8 @@
     "prettier:fix": "npx prettier . --write",
     "lint": "npx eslint .",
     "lint:fix": "npx eslint . --fix",
-    "format": "npm run lint && npm run prettier"
+    "format": "npm run lint && npm run prettier",
+    "format:fix": "npm run lint:fix && npm run prettier:fix"
   },
   "keywords": [
     "poker",
