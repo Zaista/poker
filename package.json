@@ -13,12 +13,11 @@
     "build:watch": "tsc -w",
     "prestart": "npm run build",
     "start": "node ./dist/app.js",
-    "prettier": "npx prettier . --check",
+    "prettier": "npx prettier . --check '!./private'",
     "prettier:fix": "npx prettier . --write",
     "lint": "npx eslint .",
     "lint:fix": "npx eslint . --fix",
-    "format": "npm run lint && npm run prettier",
-    "format:fix": "npm run lint:fix && npm run prettier:fix"
+    "format": "npm run lint && npm run prettier"
   },
   "keywords": [
     "poker",
