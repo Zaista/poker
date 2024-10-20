@@ -3,16 +3,23 @@
   "version": "1.0.0",
   "description": "A single-player poker game called \"The Romanian poker\" (at least that's how it's called in my friend circle).",
   "main": "dist/app.js",
+  "type": "module",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "prebuild": "rimraf ./dist",
+    "prebuild": "rimraf ./dist && npm run lint:fix && npm run prettier:fix",
     "build": "tsc",
     "build:watch": "tsc -w",
     "prestart": "npm run build",
     "start": "node ./dist/app.js",
-    "test": "cypress open --e2e --browser chrome"
+    "start:background": "pm2 start dist/app.js --name poker",
+    "stop:background": "pm2 stop poker && pm2 delete poker",
+    "prettier": "npx prettier . --check '!./private'",
+    "prettier:fix": "npx prettier . --write '!./private'",
+    "lint": "npx eslint .",
+    "lint:fix": "npx eslint . --fix",
+    "format": "npm run lint && npm run prettier"
   },
   "keywords": [
     "poker",
@@ -22,7 +29,6 @@
   "author": "Zaista",
   "license": "MIT",
   "dependencies": {
-    "cypress": "^13.15.0",
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
     "log4js": "^6.9.1",
@@ -30,8 +36,14 @@
     "rimraf": "^6.0.1"
   },
   "devDependencies": {
+    "@eslint/js": "^9.12.0",
+    "@types/eslint__js": "^8.42.3",
     "@types/express": "^5.0.0",
     "@types/node": "^22.7.5",
-    "typescript": "^5.6.2"
+    "eslint": "^9.12.0",
+    "pm2": "^5.4.2",
+    "prettier": "3.3.3",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.9.0"
   }
 }
