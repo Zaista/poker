@@ -18,7 +18,8 @@ jobs:
 
       - name: Start app locally
         run: |
-          nohup npm start $
+          npm start $
+          disown
           sleep 10
 
       - name: Start tests
