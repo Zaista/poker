@@ -18,10 +18,13 @@ jobs:
 
       - name: Start app locally
         run: |
-          nohup npm run start
+          npm run start $
 
       - name: Start tests
         run: |
           cd e2e
           npm i
           npm run test:ci
+
+      - name: Stop app
+        run: kill $(jobs -p) || true
