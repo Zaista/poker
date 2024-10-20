@@ -18,7 +18,8 @@ jobs:
 
       - name: Start app locally
         run: |
-          npm run start $
+          npm start $
+          sleep 10
 
       - name: Start tests
         run: |
