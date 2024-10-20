@@ -27,6 +27,8 @@ jobs:
           cd e2e
           npm i
           npm run test:ci
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
 
       - name: Stop app
         run: npm run stop:background
